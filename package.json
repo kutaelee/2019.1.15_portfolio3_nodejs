@@ -1,0 +1,25 @@
+{
+  "name": "gyutae",
+  "version": "1.0.0",
+  "description": "npm description",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "npm",
+    "node",
+    "js",
+    "gyutae"
+  ],
+  "author": "gyutae",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "jade": "^1.11.0"
+  },
+  "devDependencies": {}
+}
