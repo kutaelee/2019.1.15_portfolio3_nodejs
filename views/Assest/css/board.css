@@ -95,8 +95,6 @@
   cursor: pointer;
   transition:0s;
 }
-
-/* 왼쪽상단 화살표버튼 애니메이션 */
 .close_btn_span:hover:after{
   top:0;
   left:20;
@@ -105,8 +103,8 @@
   transition-timing-function: ease-in;
  
 }
-
-.project_close_btn:hover{
+/* 왼쪽상단 화살표버튼 애니메이션 */
+#arrow:hover{
   animation-duration: 1s;
   animation-name: project_close_btn;
   animation-iteration-count:infinite;
