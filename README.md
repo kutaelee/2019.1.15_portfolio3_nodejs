@@ -9,7 +9,7 @@ nodejs,jquery,javascript,html,css 를 사용했습니다. <br/>
 프로젝트 crud<br/>
 프로젝트 페이징 및 빈 섹션 채워넣기<br/>
 게스트북 글 저장 및 불러오기<br/>
-id가 admin이 아닌 글 N분마다 삭제 기본 30분세팅<br/>
+id가 admin이 아닌 글 N분마다 삭제 ( 기본값 : 30분 ) <br/>
 회원가입 , 로그인 (세션) <br/>
 스크롤 spy<br/>
 반응형 요소 조절<br/>
