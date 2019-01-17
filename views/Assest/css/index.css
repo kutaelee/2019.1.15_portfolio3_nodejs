@@ -597,6 +597,26 @@ footer{
   .login_div{
     width:25%;
   }
+  .join_btn button{
+    font-size:12px;
+    padding:15px;
+  }
+  .login_btn button{
+    font-size:12px;
+    padding:15px;
+  }
+  .login_text{
+    margin:5px 0;
+  }
+  .login_div h1{
+    margin-bottom: 0.5rem;
+  }
+  .join_text{
+    margin:5px 0;
+  }
+  .join_div h1{
+    margin-bottom: 0.5rem;
+  }
   .join_div{
     width:25%;
   }
