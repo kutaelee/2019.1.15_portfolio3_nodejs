@@ -18,31 +18,38 @@ var html = filterXSS('<script>alert("xss");</scr' + 'ipt>');
 <body>
 
 
+  <div class="alert_div">
+    </div>
       <div class="join_div" style="display: none">
+        
+    
         <span class="close_btn">X</span>
         <h1>Join</h1>
-       <div class="join_btn_div"> <span class="join_btn"><button>확인</button></span></div>
       
         <form name="join_form" id="join_form" >
-          <input type="text" name="id" placeholder="아이디" class="join_id"><br/>
-          <input type="password" id="join_password" name="password" placeholder="비밀번호" ><br/>
-           <input type="password" id="join_password2" placeholder="비밀번호 확인">
+          <input type="text" name="id" placeholder="아이디" class="join_id">
+          <input type="password" id="join_password" name="password" placeholder="비밀번호" class="join_text">
+           <input type="password" id="join_password2" placeholder="비밀번호 확인" class="join_text">
            <div class="check_div"><p></p></div>
         </form>
+        <span class="join_btn"><button>확인</button></span>
       </div>
+  
+    
         <div class="login_div" style="display: none">
             <span class="close_btn">X</span>
             <h1>Login</h1>
-            <span class="login_btn"><button>확인</button></span>
+          
           
             <form name="login_form" id="login_form">
-              <input type="text" name="id" placeholder="아이디" id="login_id"><br/>
-              <input type="password" id="password" name="password" placeholder="비밀번호" id="login_pw">
+              <input type="text" name="id" placeholder="아이디" id="login_id" class="login_text">
+              <input type="password" id="password" name="password" placeholder="비밀번호" id="login_pw" class="login_text">
                <div class="check_div"><p></p></div>
-            </form>
-            
-          </div>
-  
+            </form>   
+            <span class="login_btn"><button>확인</button></span>
+      </div>
+
+        
     
   <div class="scrollspy">
     <span class="home_btn">  <b class="nav_menu" id="home">My Portfolio</b>  </span>
