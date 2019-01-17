@@ -302,7 +302,10 @@ router.post('/project/deletefiles',function(req,res,next){
 
 //update db 수정 (글 수정)
 router.post('/project/update',upload.array('filename[]'), (req, res) => {
-  client.query("update project set title='"+req.body.title+"',password='"+req.session.user.pw+"',text='"+req.body.ir1+"',img='/"+grade+'/'+req.body.title+'/'+req.files[0].filename+"',date='"+req.body.date+"' where title='"+req.body.cur_title+"';", function(err,fields){
+  var title=escapeHtml(req.body.title);
+  var lang=escapeHtml(req.body.lang);
+  var date=escapeHtml(req.body.date);
+  client.query("update project set title='"+title+"',password='"+req.session.user.pw+"',text='"+req.body.ir1+"',img='/"+grade+'/'+req.body.title+'/'+req.files[0].filename+"',date='"+date+"',lang='"+lang+"' where title='"+req.body.cur_title+"';", function(err,fields){
     if(err){
       console.log("update project 쿼리문에 오류가 있습니다.");
     }
@@ -311,6 +314,7 @@ router.post('/project/update',upload.array('filename[]'), (req, res) => {
       }
   })
 });
+
 
 //delete (글 삭제)
 router.post('/project/delete',function(req,res,next){
