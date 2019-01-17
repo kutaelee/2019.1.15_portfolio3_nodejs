@@ -239,9 +239,11 @@ h3{
 }
 .close_btn{
   position: absolute;
-  margin-left: 35%;
+  margin-left: 37%;
   margin-top:2%;
   cursor: pointer;
+  color:snow;
+  font-size:30px;
 }
 .login_btn{
   display: inline;
