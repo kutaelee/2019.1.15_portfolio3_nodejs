@@ -148,6 +148,8 @@
   max-height:1000px;
   margin-left: 20%;
   margin-bottom:1%;
+   border: 1px outset grey;
+  border-radius:15px;
 }
 
 
