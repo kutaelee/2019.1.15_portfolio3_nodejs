@@ -346,18 +346,12 @@ $(document).on("click",".sumnail",function(){
 
 /*필터 블러,해제*/
 function filterblur(){
-  $(".main").css("-webkit-filter","blur(5px)");
-  $(".project").css("-webkit-filter","blur(5px)");
-  $(".profile").css("-webkit-filter","blur(5px)");
-  $(".guest_book").css("-webkit-filter","blur(5px)");
-  $(".lisence").css("-webkit-filter","blur(5px)");
+  $(".section").css("-webkit-filter","blur(5px)");
+  $("footer").css("-webkit-filter","blur(5px)");
 }
 function filternone(){
-  $(".main").css("-webkit-filter","none");
-  $(".project").css("-webkit-filter","none");
-  $(".profile").css("-webkit-filter","none");
-  $(".guest_book").css("-webkit-filter","none");
-  $(".lisence").css("-webkit-filter","none");
+  $(".section").css("-webkit-filter","none");
+  $("footer").css("-webkit-filter","none");
 }
 /* 창 흔들기 애니메이션 */
 function shake(classname){
