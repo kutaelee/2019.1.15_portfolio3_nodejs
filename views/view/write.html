@@ -1,0 +1,33 @@
+<script src="../js/write.js"></script>
+<script type="text/javascript" src="../se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
+<link rel="icon" href="data:,">
+<link href="../Assest/css/write.css" rel="stylesheet" type="text/css">
+<div class="back_bar"><button class="back_btn">Back</button></div>
+<div class="write_div">
+<form name="write" id="write_form" form method="post" action="/project/write" enctype="multipart/form-data">
+<a>프로젝트명: </a> <input type="text" name="title" id="project_name" class="input"></input><a class="check_a"></a><br/>
+<a>기간: </a> <input type="text" name="date" id="project_date" class="input"></input><br/>
+<a>주요환경: </a> <input type="text" name="lang" id="project_lang" class="input"></input><br/>
+<textarea name="ir1" id="ir1" rows="10" cols="100" style="height:450px;"></textarea><br/>
+<a>프로젝트 이미지(이름순 첫번째 이미지가 섬네일)</a><br/><input multiple="multiple"  type="file" name="filename[]" id="img" accept='image/*'/>
+<script type="text/javascript">
+    var oEditors = [];
+       
+       nhn.husky.EZCreator.createInIFrame({
+       
+           oAppRef: oEditors,
+       
+           elPlaceHolder: "ir1",
+       
+           sSkinURI: "../se2/SmartEditor2Skin.html",
+       
+           fCreator: "createSEditor2"
+         
+       });
+       </script>
+    
+</form>
+<div class="write_bar"><button class="submit_btn">등록</button></div>
+
+</div>

@@ -1,45 +1,132 @@
 <html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
-  <base href="/">
-<link href="./Assest/css/index.css" rel="stylesheet" type="text/css">
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-xss/0.3.3/xss.min.js"></script>
+<script>
+var html = filterXSS('<script>alert("xss");</scr' + 'ipt>');
+</script>
 <link rel="icon" href="data:,">
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link href="./Assest/css/index.css" rel="stylesheet" type="text/css">
 <script  src="./js/index.js"></script>
-
-
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Thasadith:400i" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
 
 
-  <div class="container">
-      <h1 class="maintext"> 현재 사이트는 Node.js , Express, JavaScript ,JQuery,Css 로 구성되었습니다.</h1>
-      <h1 class="maintext"> 언어를 고르시면 해당 언어의 프로젝트 PPT 페이지로 이동됩니다.</h1>
-      <h1 class="maintext">Develop by Gyutae Lee</h1>
-      <div class="other_nav_bar">
+      <div class="join_div" style="display: none">
+        <span class="close_btn">X</span>
+        <h1>Join</h1>
+       <div class="join_btn_div"> <span class="join_btn"><button>확인</button></span></div>
+      
+        <form name="join_form" id="join_form" >
+          <input type="text" name="id" placeholder="아이디" class="join_id"><br/>
+          <input type="password" id="join_password" name="password" placeholder="비밀번호" ><br/>
+           <input type="password" id="join_password2" placeholder="비밀번호 확인">
+           <div class="check_div"><p></p></div>
+        </form>
+      </div>
+        <div class="login_div" style="display: none">
+            <span class="close_btn">X</span>
+            <h1>Login</h1>
+            <span class="login_btn"><button>확인</button></span>
+          
+            <form name="login_form" id="login_form">
+              <input type="text" name="id" placeholder="아이디" id="login_id"><br/>
+              <input type="password" id="password" name="password" placeholder="비밀번호" id="login_pw">
+               <div class="check_div"><p></p></div>
+            </form>
+            
+          </div>
+  
+    
+  <div class="scrollspy">
+    <span class="home_btn">  <b class="nav_menu" id="home">My Portfolio</b>  </span>
+ 
 
-        <span class="other_nav_span"><a class="toggle_btn">Other Menus</a></span>
-        <div class="other_nav">
-        <a class="profile" href="/profile">My profile</a> <br/>
-      <a href="mailto:kutaelee0@gmail.com">Send E-mail</a>
-
+    <span class="navi"> <a class="nav_menu"  id="welcome">Welcome</a>
+      <a class="nav_menu"  id="profile">Profile</a> 
+      <a class="nav_menu" id="project">Project</a> 
+     <a class="nav_menu" id="guest_book">Guest book</a>
+    </span>
+     <span class="login_span"><a>Login</a></span>
+     <span class="join_span"><a>Join</a></span>
+     <span class="logout_span"><a>Logout</a></span>
+   
     </div>
+  <div class="home">
+    <div class="section">
+    <div class="main">
+      <div class="main_text">
+      <h1>Junior Developer Gyutae Lee</h1>
+      <h2>안녕하세요 이규태의 포트폴리오 사이트입니다.</h2>
+      <h2>방문해주셔서 감사합니다.</h2>
+      </div>
+
+    <div class="main_btn">
+  
+    <a class="project_btn" id="view_btn" data-text="Click Me!">View Portfolio</a> 
+   
     </div>
+  </div>
+</div>
+     
 
+  <div class="section">
+    <div class="profile_head"> <h1>PROFILE</h1>
+      <h3 style="color:grey">My History</h3></div>
+   
+  <div class="profile"> 
 
-  <section class="section1">
-  <span class="subject"><a id="menu" class="JavaScript">JavaScript</a></span>
-  <span class="subject"><a id="menu" class="Spring">Spring</a></span>
-  <span class="subject"><a id="menu"class="Java">Java</a></span>
-  <span class="subject"><a id="menu" class="React">React</a></span>
-  <span class="subject"><a id="menu" class="XE&Node">XE & Node</a></span>
-  </section>
   </div>
 
+  </div>
+  <div class="lisence"> 
+    <br/>
+      <p id="edu_text">정보처리 관련 자격증 </p>
+      <p id="edu_text">정보처리산업기사 (2018.03)</p>
+      <p  id="edu_text">네트워크 관리사2급 (2017.05)</p>
+  </div>
+
+</div>
+
+<div class="section">
+  <div class="project_div">
+   
+  </div>
+<div class="content">
 
 
-</body>
+<h1 class="content_head">PORTFOLIO</h1>
+<h3 style="color:grey">Project Review</h3>
+<div class="content_div">
+
+</div>
+
+<div class="content_paging"></div>
+</div>
 
 
+</div>
+
+<div class=guest_book>
+  <div class="guest_book_head"><h1>GUEST BOOK</h1>
+    <h3>Need Your FeedBack</h3>
+
+  </div>
+</div>
+</div>
+
+
+
+  </body>
+  <footer>
+      <span class="mail"> <a  class="nav_menu"  href="mailto:kutaelee0@gamil.com">kutaelee0@gamil.com</a></span>
+      <span class="mygit"> <a  class="nav_menu" >MY GitHub</a></span>
+      <span class="issue"> <a  class="nav_menu">이슈모아(xe)</a></span>
+  </footer>
 </html>

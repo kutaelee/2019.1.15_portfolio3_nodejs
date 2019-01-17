@@ -1,0 +1,161 @@
+/*프로젝트 설명 부분*/
+.board_span{
+  width:60%;
+  height:70%;
+  display: inline-block;
+  text-align: center;
+}
+.board_span div{
+  background-color: black;
+  color:snow;
+}
+/* 프로젝트 뒤로가기 버튼*/
+.board_nav{
+  width: 5%;
+  text-align: right;
+}
+.close_btn_span{
+  display: inline-block;
+  padding:20px;
+  font-size: 25px;
+  font-weight: 700;
+  color:snow;
+  margin-right: 30px;
+  cursor: pointer;
+  background-color: #FFC61A;
+  border: 1px solid orange;
+  margin-top:10px;
+  box-shadow:1px 1px 5px grey;
+  border-radius: 10px;
+  margin-left: 45%;
+  margin-bottom: 3%;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.close_btn_span:before{
+  content:'';
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:#212529;
+  transform:scaleX(0);
+  transition:0;
+}
+.close_btn_span:hover:before{
+  transform:scaleX(1);
+  transition:1s;
+}
+.close_btn_span:after{
+  content:attr(data-text);
+  position: absolute;
+  top:0;
+  left:-100%;
+  padding:20px;
+  cursor: pointer;
+  transition:0s;
+}
+.close_btn_span:hover:after{
+  top:0;
+  left:20;
+  transition:0.5s;
+  transition-delay:0.5s;
+  transition-timing-function: ease-in;
+ 
+}
+.project_close_btn{
+  cursor: pointer;
+}
+
+/*프로젝트 요약 정보*/
+.board_info{
+  text-align:center;
+}
+.board_info h1{
+  margin-bottom:20px;
+  font-size:40px;
+}
+
+/*프로젝트 이미지 */
+.board_show{
+  display: none;
+}
+.slide_section{
+  width: 100%;
+  height: 70%;
+  float: left;
+}
+.slide_img img{
+  display: block;
+  width:65%;
+  height: 77%;
+  max-width:1350px;
+  max-height:1000px;
+  margin-left: 20%;
+  margin-bottom:1%;
+}
+
+
+.pagenum{
+  text-align: center;
+  font-size: 25px;
+  margin-bottom:3%;
+}
+
+/*프로젝트 나머지 버튼들*/
+.project_btn_div{
+  position: relative;
+  margin-bottom: 3%;
+  text-align: center;
+}
+.project_btn_div button{
+  padding:15px;
+  padding-left:20px;
+  padding-right:20px;
+  font-size: 16px;
+  background-color: #FFC61A;
+  border: 1px solid orange;
+  box-shadow:1px 1px 5px grey;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color:snow;
+}
+.delete_btn{
+  margin-left: 2%;
+  margin-top: 2%;
+}
+
+.left{
+  cursor: pointer;
+  font-size:100px;
+  float: left;
+  margin-left: 9%;
+  margin-top:15%;
+  font-weight: 700;
+  border-radius: 50px;
+  border:none;
+  color: #FFC61A;
+  background-color: white;
+  box-shadow:2px 2px 5px #FFC61A;
+}
+
+.right{
+  cursor: pointer;
+  font-size:100px;
+  float: left;
+  margin-top:15%;
+  font-weight: 700;
+  border-radius: 50px;
+  margin-left: -10%;
+  border:none;
+  color: #FFC61A;
+  background-color: white;
+  box-shadow:2px 2px 5px #FFC61A;
+}
+
+

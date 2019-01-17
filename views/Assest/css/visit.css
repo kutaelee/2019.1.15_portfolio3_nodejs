@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+.visit_body{
+  font-family: nanum;
+  margin:0;
+}
+p{
+  margin-top:0;
+}
+
+
+/* header 영역*/
+.guest_book_head{
+  text-align: center;
+
+  opacity: 0.8;
+  margin-top:5%;
+}
+.guest_book_head h1{
+  color:black;
+  margin-top:1em;
+  display:inline-block;
+
+}
+.guest_book_head h3{
+  color:grey;
+}
+
+/* 게스트북 컨텐츠 영역*/
+.visit{
+  height:100%;
+  width:100%;
+  margin:0;
+  background-size: 100%;
+
+}
+/* 가져온 글 영역*/
+.visit_content{
+  background-color:#FFD117;
+  display:block;
+  width:40%;
+  height:80%;
+  border: 2px solid white;
+  margin-left: 31%;
+  margin-bottom: 2%;
+}
+.visit_text{
+  width:100%;
+  height:90%;
+  display: inline-block;
+  overflow-y: auto;
+}
+.visit_text span{
+  padding:10px;
+  font-size: 15px;
+  display: inline-block;
+  margin:5px;
+  box-shadow:2px 6px 10px grey;
+  border-radius: 10px;
+}
+
+
+/* 전송 폼 영역 */
+.visit_form_div{
+  text-align: center;
+  display:inline-flex;
+  width:100%;
+  height:10%;
+  border-top:1px solid white;
+  background-color: #FFD117;
+
+}
+.visit_form{
+  width:80%;
+  margin-left:5%;
+}
+#textarea{
+  width:100%;
+  height:90%;
+  border:1px solid grey;
+  margin-top:1px;
+}
+
+
+/*전송버튼*/
+.visit_span{
+  display: inline-block;
+}
+#visit_btn{
+  background-color: white;
+  margin:5px;
+  font-size:15px;
+  padding:15px;
+  border:1px solid white;
+  box-shadow: 1px 1px 5px grey;
+  border-radius: 10px;
+  color:#FFC61A;
+  cursor: pointer;
+  opacity: 1;
+  margin-left: 20px;
+}
+.visit_body button{
+  cursor:pointer;
+}

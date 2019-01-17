@@ -1,0 +1,58 @@
+/*전송 폼 영역*/
+.write_div{
+  margin-left: 37%;
+  margin-top:3%;
+  text-align: left;
+
+}
+.input{
+  width:20%;
+}
+#textarea{
+  width:50%;
+  height:40%;
+}
+
+/* write 전송 버튼 */
+.submit_btn{
+  padding:15px;
+  padding-left:20px;
+  padding-right:20px;
+  margin-top: 30px;
+  font-size: 16px;
+  background-color: #FFD117;
+  box-shadow:1px 1px 5px grey;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color:snow;
+  border: 1px solid orange;
+  opacity:1;
+}
+/* update 전송 버튼*/
+.update_btn{
+  padding:15px;
+  padding-left:20px;
+  padding-right:20px;
+  margin-top: 30px;
+  font-size: 16px;
+  background-color: #FFD117;
+  box-shadow:1px 1px 5px grey;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color:snow;
+  border: 2px solid orange;
+  opacity:1;
+}
+/* 버튼 div*/
+.back_bar{
+  position: absolute;
+  display: inline;
+  margin-left: 30%;
+
+}
+.write_bar{
+  text-align: center;
+  margin-right: 18%;
+}
