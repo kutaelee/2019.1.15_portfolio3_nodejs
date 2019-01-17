@@ -311,7 +311,7 @@ $(document).on("click",".sumnail",function(){
   datatype:"text/html",
   success:function(result){
     $('.project_div').append(result);
-    $('.board_nav').append(' <span class="project_close_btn"><img src="./Assest/img/arrow-17-64.gif"></span>');
+    $('.board_nav').append(' <span class="project_close_btn"id="arrow"><img src="./Assest/img/arrow-17-64.gif"></span>');
     $('.project_div').fadeIn();
     $('.'+select_num).parent().css({
       'opacity':'1'
