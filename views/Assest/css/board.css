@@ -106,10 +106,10 @@
 /* 왼쪽상단 화살표버튼 애니메이션 */
 #arrow:hover{
   animation-duration: 1s;
-  animation-name: project_close_btn;
+  animation-name: arrow;
   animation-iteration-count:infinite;
 }
-@keyframes project_close_btn{
+@keyframes arrow{
   from {
     margin-left: 0%;
     opacity: 0.3;
