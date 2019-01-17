@@ -35,7 +35,26 @@ var st=0;
     
   });
 
+  /* 프로젝트 창 닫는 함수 */
+function projectclose(){
+  $(".content_div").css("-webkit-filter","none");
 
+  $('.content').css({
+    'transform':'translateX(0%)',
+    'transition':'1.5s'
+  })
+  $('.home').fadeIn();
+  $('.scrollspy').fadeIn();
+  $('.guest_book').fadeIn();
+  $('footer').fadeIn();
+  $('.project_div').css({
+    'transform':'translateX(100%)',
+    'transition':'1.5s'
+  })
+  var offset = $(".content_head").offset();
+  $('html, body').animate({scrollTop : offset.top}, 0);
+  $('.project_div').text("");
+}
 
 /*프로젝트 요소 생성 전역 함수 (index,write 페이지 둘다 쓰임)*/
 function projectload(result) {
@@ -280,23 +299,10 @@ $(document).on('click','.write_btn',function(){
 });
 /* 프로젝트 닫기버튼 */
 $(document).on('click','.board_nav',function(){
-  $(".content_div").css("-webkit-filter","none");
-
-  $('.content').css({
-    'transform':'translateX(0%)',
-    'transition':'1.5s'
-  })
-  $('.home').fadeIn();
-  $('.scrollspy').fadeIn();
-  $('.guest_book').fadeIn();
-  $('footer').fadeIn();
-  $('.project_div').css({
-    'transform':'translateX(100%)',
-    'transition':'1.5s'
-  })
-  var offset = $(".content_head").offset();
-  $('html, body').animate({scrollTop : offset.top}, 0);
-  $('.project_div').text("");
+  projectclose();
+});
+$(document).on('click','.project_close_btn',function(){
+  projectclose();
 });
 
 /*프로젝트 선택 시 load */
@@ -311,7 +317,7 @@ $(document).on("click",".sumnail",function(){
   datatype:"text/html",
   success:function(result){
     $('.project_div').append(result);
-    $('.board_nav').append(' <span class="project_close_btn"id="arrow"><img src="./Assest/img/arrow-17-64.gif"></span>');
+    $('.board_nav').append(' <span class="project_close_btn" id="arrow"><img src="./Assest/img/arrow-17-64.gif"></span>');
     $('.project_div').fadeIn();
     $('.'+select_num).parent().css({
       'opacity':'1'
