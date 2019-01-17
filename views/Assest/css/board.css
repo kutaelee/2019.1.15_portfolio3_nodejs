@@ -49,6 +49,7 @@
   width: 20%;
   text-align: left;
   cursor: pointer;
+  margin-left: 3%;
 }
 .close_btn_span{
   display: inline-block;
@@ -59,11 +60,10 @@
   margin-right: 30px;
   cursor: pointer;
   background-color: #FFC61A;
-  border: 1px solid orange;
   margin-top:10px;
   box-shadow:1px 1px 5px grey;
   border-radius: 10px;
-  margin-left: 45%;
+  margin-left: 44.8%;
   margin-bottom: 3%;
   overflow: hidden;
   font-family: 'Montserrat', sans-serif;
@@ -95,6 +95,8 @@
   cursor: pointer;
   transition:0s;
 }
+
+/* 왼쪽상단 화살표버튼 애니메이션 */
 .close_btn_span:hover:after{
   top:0;
   left:20;
@@ -103,7 +105,7 @@
   transition-timing-function: ease-in;
  
 }
-/* 왼쪽상단 화살표버튼 애니메이션 */
+
 #arrow:hover{
   animation-duration: 1s;
   animation-name: arrow;
