@@ -45,6 +45,7 @@ function projectclose(){
   })
   $('.home').fadeIn();
   $('.scrollspy').fadeIn();
+  $('.active_scroll').fadeIn();
   $('.guest_book').fadeIn();
   $('footer').fadeIn();
   $('.project_div').css({
@@ -78,7 +79,7 @@ function projectload(result) {
 
 
 $(document).ready(function(){
-  
+
   /* 접속 시 사이즈 구별 */
   if($(window).width() > 1370 &&$(window).width() <= 1550){
     $('body').attr('class','notebook');
@@ -374,15 +375,22 @@ function shake(classname){
   },10);
   
 }
-
+$('.alert_div').click(function(){
+  $('.alert_div').fadeOut();
+  $('.login_div').fadeOut();
+  $('.join_div').fadeOut();
+  filternone();
+})
 /* 회원가입 click */
 $('.join_span').click(function(){
+  $('.alert_div').show();
   $('.login_div').hide();
   $('.join_div').animate({top : st}, 10);
   $('.join_div').fadeIn();
   filterblur();
   $('.join_div').css('-webkit-filter','drop-shadow(5px 5px 20px black)');
   $('.close_btn').click(function(){
+    $('.alert_div').hide();
     $('#join_form input').val("");
     $('.check_div').html("");
     filternone();
@@ -462,6 +470,7 @@ $('.join_btn').mouseover(function(){
   if(id_check&&pw_check&&pw2_check){
     $('.join_btn button').removeAttr('disabled','false');
   }else{
+    $('.check_div').text("비어있거나 잘못된 입력값이 있습니다!");
     shake("join_div");
     $('.join_btn button').attr('disabled','true');
   }
@@ -495,6 +504,7 @@ $('.join_btn').click(function(){
 
 /* 로그인 페이지 load*/
 $('.login_span').click(function(){
+  $('.alert_div').show();
   $('.join_div').hide();
   $('.login_div').animate({top : st}, 100);
   var logintop=$('.login_div').offset();
@@ -504,6 +514,7 @@ $('.login_span').click(function(){
   $('.login_div').css('-webkit-filter','drop-shadow(5px 5px 20px black)');
 
   $('.close_btn').click(function(){
+    $('.alert_div').hide();
     filternone();
     $('.login_div').fadeOut('slow');
   });
