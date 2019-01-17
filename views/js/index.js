@@ -279,7 +279,7 @@ $(document).on('click','.write_btn',function(){
  
 });
 /* 프로젝트 닫기버튼 */
-$(document).on('click','.project_close_btn',function(){
+$(document).on('click','.board_nav',function(){
   $(".content_div").css("-webkit-filter","none");
 
   $('.content').css({
