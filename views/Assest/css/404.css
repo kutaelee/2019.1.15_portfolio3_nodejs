@@ -1,0 +1,72 @@
+body{
+    margin:0;
+    padding:0;
+    background: black;
+}
+.shadow
+{
+    position: relative;
+    margin:250px auto 0;
+    width:35%;
+    height:35%;
+    background: linear-gradient(0deg,#000,#262626);
+    text-align: center;
+}
+.shadow:before,
+.shadow:after{
+    content: '';
+    position: absolute;
+    top:-2;
+    left:-2;
+    background:linear-gradient(45deg,#fb0094,#0000ff,#00ff00,#ffff00,#ff0000,#fb0094,#0000ff,#00ff00,#ffff00,#ff0000);
+    width: calc(100% + 4px);
+    height:calc(100% + 4px);
+    background-size:400%;
+    z-index: -1;
+    animation:animate 20s linear infinite;
+}
+.shadow:after{
+    filter:blur(20px);
+}
+@keyframes animate
+{
+    0%
+    {
+        background-position: 0 0;
+    }
+    50%
+    {
+        background-position: 300% 0;
+    }
+    100%
+    {
+        background-position: 0 0;
+    }
+}
+.shadow h1{
+    color:snow;
+    padding-top:30px;
+    font-size:60px;
+    margin-bottom:0.5em;
+    font-family: 'Thasadith', sans-serif;
+    letter-spacing:10px;
+}
+.taxi_stop{
+    position: absolute;
+    width:180px;
+    height:60px;
+    text-align: center;
+    color:snow;
+    opacity: 0.8;
+    background:dimgray;
+    margin-left:45%;
+    margin-top:5%;
+    letter-spacing:1px;
+}
+.car{
+    max-width: 180;
+    margin-top:9%;
+    transform:rotateY(180deg);
+    margin-left:45%;
+    cursor: pointer;
+}
