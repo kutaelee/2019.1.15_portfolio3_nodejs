@@ -30,14 +30,16 @@ $(document).ready(function(){
     }
 
     i=0;
-    /* 0.1초마다 토글시킴 애니메이션 효과*/
+    /* 0.3초마다 토글시킴 애니메이션 효과*/
     setInterval(function(){
       if(i<=list.length)
       {
         toggle();
       }
       i++;
-    }, 100);
+    }, 300);
+    },error:function(request,status,error){
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
     })
   /* 전송버튼 기능 */
@@ -52,6 +54,8 @@ $(document).ready(function(){
         dataType:"json",
         success:function(){
           $('#textarea').val("");
+        },error:function(request,status,error){
+          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
         }
       })
     }else{
@@ -80,6 +84,8 @@ $(document).ready(function(){
                   $('.visit_text').prepend('<span id='+lastnum+' style="display:none;background-color:'+color[result]+'"><p>'+data2[0].regdate+'<p/>'+data2[0].text+'</span>');
                   $('#'+lastnum).show('slide');
 
+                },error:function(request,status,error){
+                  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
                 }
               });
             }
