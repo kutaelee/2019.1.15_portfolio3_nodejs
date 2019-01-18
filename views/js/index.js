@@ -118,6 +118,8 @@ $(document).ready(function(){
  /*scrollspy css기능*/
   $(window).scroll(function() {
     st = $(this).scrollTop();
+    $('.join_div').animate({top : st}, 0);
+    $('.login_div').animate({top : st}, 0);
     if(st==0){
       $('.active_scroll').attr('class','scrollspy');
     }else{  
@@ -165,6 +167,8 @@ success:function(result){
 $('.profile').html(result);
 $('.profile').show("fast");
 
+},error:function(request,status,error){
+  console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 }
 });
 
@@ -174,16 +178,15 @@ $('.profile').show("fast");
       url:"/project/remove",
       type:"post",
       success:function(){
+        console.log("관리자외의 글 삭제완료");
+      },error:function(request,status,error){
+        console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
     })
     },1000 * 60 * 30);
 
 
-
     /* project */
-
-
-
 
 /*project 페이징 버튼 load*/
 $.ajax({
@@ -204,8 +207,7 @@ $.ajax({
             $('.content_paging').append('<button class="page_btn" id="'+j+'" style="background:orange;color:snow">'+j+'</button>');  
           }else{
             $('.content_paging').append('<button class="page_btn" id="'+j+'">'+j+'</button>');  
-          }
-           
+          }       
           j++;
           if(j>10){break;}
         }
@@ -213,9 +215,10 @@ $.ajax({
       if(j>10){
         $('.content_paging').append('<button class="page_btn">▶</button>');
       }
-  
     }
   })
+  },error:function(request,status,error){
+    console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
   
   });
@@ -244,6 +247,8 @@ $(document).on('click','.page_btn',function(){
     datatype:"text/html",
     success:function(result){
       projectload(result);
+    },error:function(request,status,error){
+      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 });
@@ -294,6 +299,8 @@ $(document).on('click','.write_btn',function(){
       }else{
         alert("로그인 후 이용해주세요!");
       }
+    },error:function(request,status,error){
+      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
  
@@ -311,7 +318,7 @@ $(document).on("click",".sumnail",function(){
   select_num=$(this).parent().prop('id');
   curpage=0;
   cur_project_title=$(this).parent().parent().prop('id');
-
+  $('.project_div').text("");
   $.ajax({
   url:"/board",
   type:"post",
@@ -331,12 +338,13 @@ $(document).on("click",".sumnail",function(){
     $('.guest_book').hide();
     $('.active_scroll').hide();
     $('footer').hide();
-
     $('.project_div').css({
       'transform':'translateX(0%)',
       'transition':'1.5s'
     })
     $('html, body').animate({scrollTop : 0}, 0);
+  },error:function(request,status,error){
+    console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
 
     })
@@ -379,10 +387,10 @@ $('.alert_div').click(function(){
 $('.join_span').click(function(){
   $('.alert_div').show();
   $('.login_div').hide();
-  $('.join_div').animate({top : st}, 10);
   $('.join_div').fadeIn();
   filterblur();
   $('.join_div').css('-webkit-filter','drop-shadow(5px 5px 20px black)');
+
   $('.close_btn').click(function(){
     $('.alert_div').hide();
     $('#join_form input').val("");
@@ -393,10 +401,17 @@ $('.join_span').click(function(){
 })
 
 /* 회원가입 데이터 검증 */
+
 $('.join_id').keyup(function(){
   $('.join_btn button').removeAttr('disabled','false');
   var data=$('.join_id').val();
-  if(data.length<4||data.length>15){
+  re = /[~!@\#$%^&*\()\-=+_'<>]/gi; 
+  var temp=$(".join_id").val();
+
+  if(re.test(temp)){ 
+  $(".check_div").text("아이디에 특수문자를 포함할 수 없습니다");
+   }
+ else if(data.length<4||data.length>15){
     $('.check_div').html("아이디는 영문기준 4글자 이상<br/> 15글자 미만으로 입력하셔야 합니다.");
   } else{
 
@@ -406,16 +421,18 @@ $('.join_id').keyup(function(){
       data:{'id':data},
       datatype:'text/html',
       success:function(result){
-        $('.check_div').text(result);
-        if(result=="사용해도 좋은 아이디 입니다."){
+        if(result){
+          $('.check_div').text("사용하셔도 좋은 아이디 입니다!");
            id_check=true;
         }else{
+          $('.check_div').text("이미 존재하는 아이디 입니다!");
           id_check=false;
         }
+      },error:function(request,status,error){
+        console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
       })
   }
- 
 });
 $('#join_password').keyup(function(){
   $('.join_btn button').removeAttr('disabled','false');
@@ -479,14 +496,16 @@ $('.join_btn').click(function(){
     data:data,
     datatype:'text/html',
     success:function(result){
-      alert(result);
-      if(result=="가입성공!")
+      alert("가입성공!");
+      if(result)
       {
       filternone();
       $('.join_div').hide('slow');
       $('.join_div input').val("");
       document.location.href="/";
       }
+    },error:function(request,status,error){
+      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 }else{
@@ -500,7 +519,6 @@ $('.join_btn').click(function(){
 $('.login_span').click(function(){
   $('.alert_div').show();
   $('.join_div').hide();
-  $('.login_div').animate({top : st}, 100);
   var logintop=$('.login_div').offset();
   $('.login_div').fadeIn();
   $('body').animate({top : logintop.top}, 100);
@@ -533,6 +551,8 @@ $('.login_btn').click(function(){
             alert(result+"님 반갑습니다.");
             filternone();
             window.location.href='/';
+          },error:function(request,status,error){
+            console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
           }
         })
       }else{
@@ -557,8 +577,9 @@ $.ajax({
       $('.logout_span').hide();
       $('.login_span').show();
       $('.join_span').show();
-     
     }
+  },error:function(request,status,error){
+    console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
 
 })
@@ -570,7 +591,8 @@ $('.logout_span').click(function(){
     success:function(){
       window.location.href="/";
       alert("로그아웃 완료");
-     
+    },error:function(request,status,error){
+      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 });
@@ -582,6 +604,8 @@ $('.logout_span').click(function(){
     datatype:'text/html',
     success:function(result){
       $('.guest_book').append(result);
+    },error:function(request,status,error){
+      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 
