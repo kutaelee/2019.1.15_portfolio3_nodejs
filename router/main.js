@@ -111,9 +111,15 @@ function deletefile(path,data){
 router.get('/:id',function(req,res){
   fs.readFile('./views/view/'+req.params.id+'.html',(err,data) =>{
     if(err)  { console.error(err.stack);
-        data="404 not found"};
-    res.type('html');
-    res.send(data);
+      fs.readFile('./views/view/404.html',(err,data) =>{
+        res.type('html');
+        res.send(data);
+      })
+    }else{
+      res.type('html');
+      res.send(data);
+    }
+   
 });
 });
 router.get('/:id/get', function(req, res, next) {
@@ -145,8 +151,10 @@ fs.readFile('./views/index.html',function(error,data){
 router.post('/:id',function(req,res,next){
   console.log(req.params.id); 
     fs.readFile('./views/view/'+req.params.id+'.html',(err,data) =>{
-      if(err) {data="404 not found";
-    console.log(req.params.id+" err!")};
+      if(err) { fs.readFile('./views/view/404.html',(err,data) =>{
+        res.type('html');
+        res.send(data);
+      })};
       res.send(data);
     });
   
