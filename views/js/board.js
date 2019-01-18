@@ -17,36 +17,29 @@ function right(){
 /* 글 삭제 */
   $('.delete_btn').click(function(){
     $.ajax({
-      url:"/member/check",
+      url:"/session/check",
+      data:{'tag':'delete','board_id':board_id,'title':board_title},
       type:"post",
       success:function(result){
-        if(result==board_id||result=="admin"){
-          $.ajax({
-            url:"/project/delete",
-            data:{"id":board_id,"title":board_title},
-            type:"post",
-            success:function(){
+        if(result){
               alert("삭제완료");
-              window.location.href="/";
-            }
-          })
+              window.location.href="/";            
         }else{
           alert("권한이 없습니다");
         }
+      },error:function(request,status,error){
+        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
     })
   });
 
-  /* 글 수정 */
-  $('.update_btn').click(function(){
-
+   /* 글 수정 */
+   $('.update_btn').click(function(){
     $.ajax({
       url:"/member/check",
       type:"post",
       success:function(result){
         if(result==board_id||result=="admin"){
-          $(".content_div").css("-webkit-filter","none");
-
           $('.project_div').fadeOut();
           $('.main').show();
           $('.profile').hide();
@@ -82,16 +75,23 @@ function right(){
                  $('#project_date').val(result[0].date);
                  $('#ir1').val(result[0].text); 
                  $('.page_btn').hide();
+                },error:function(request,status,error){
+                  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
                 }
               })
+            },error:function(request,status,error){
+              alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
             }
           })
         }else{
           alert("권한이 없습니다");
         }
+      },error:function(request,status,error){
+        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
     })
   });
+
 
   /*프로젝트 내용통신*/
   $(document).ready(function(){
@@ -110,8 +110,9 @@ function right(){
         $('.content_div').show("fast");
         writer=result[0].id;
         cur_project_title=result[0].title;
+      },error:function(request,status,error){
+        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
-    
         })
   })
 var forderlist=new Array();
@@ -158,6 +159,8 @@ $.ajax({
         forderlist=(result);
         $(".slide_img").html('<img src="..'+imgdir+'/'+cur_project_title+'/'+forderlist[0]+'">');
         $(".pagenum").text((curpage+1)+'/'+(forderlist.length));     
+      },error:function(request,status,error){
+        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
       });
  
