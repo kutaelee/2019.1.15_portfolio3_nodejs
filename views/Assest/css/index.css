@@ -115,6 +115,7 @@ h3{
 .join_div{
   width:20%;
   height:50%;
+  background:black;
   background-color: rgb(0,0,0,0.5);
   position: absolute;
   z-index:10;
@@ -206,6 +207,7 @@ h3{
 .login_div{
   width:20%;
   height:45%;
+  background:black;
   background-color: rgb(0,0,0,0.5);
   position: absolute;
   z-index:10;
@@ -528,6 +530,7 @@ footer{
   .join_div{
     width:25%;
   }
+ 
   .scrollspy{
     width:70%;
     margin-left:15%;
@@ -609,7 +612,7 @@ footer{
     margin:5px 0;
   }
   .login_div h1{
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5em;
   }
   .join_text{
     margin:5px 0;
@@ -675,6 +678,7 @@ footer{
   .sumnail{
     width:220;
     height:120;
+    font-size:80px;
   }
   .content_section2 img{
     width:220;
@@ -685,7 +689,7 @@ footer{
     height:120;
   }
   .content_paging{
-    margin-top:-12%;
+    margin-top:-3%;
   }
   .slide_img img{
     max-width: 1100;
@@ -693,6 +697,10 @@ footer{
   }
   .close_btn_span{
     margin-left:41%;
+  }
+  #visit_btn{
+    font-size: 14px;
+    padding:11px;
   }
 }
 /* Movile */
