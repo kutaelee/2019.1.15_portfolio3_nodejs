@@ -143,11 +143,13 @@ fs.readFile('./views/index.html',function(error,data){
 
 //필요한 html파일 가져올때 사용
 router.post('/:id',function(req,res,next){
-  console.log(req.params.id);
-  fs.readFile('./views/view/'+req.params.id+'.html',(err,data) =>{
-    if(err) throw err;
-    res.send(data);
-  });
+  console.log(req.params.id); 
+    fs.readFile('./views/view/'+req.params.id+'.html',(err,data) =>{
+      if(err) {data="404 not found";
+    console.log(req.params.id+" err!")};
+      res.send(data);
+    });
+  
 });
 
 /* guestbook */
@@ -315,7 +317,6 @@ router.post('/project/update',upload.array('filename[]'), (req, res) => {
   })
 });
 
-
 //delete (글 삭제)
 router.post('/project/delete',function(req,res,next){
   client.query('delete from project where title="'+req.body.title+'";', function(err,result,fields){
@@ -471,14 +472,42 @@ router.post('/member/check', function(req, res,next){
   }
 })
 
+router.post('/session/check', function(req, res,next){
+  if(req.session.user){
+    if(req.body.tag=='delete'){
+      if(req.body.board_id==req.session.user.id || req.session.user.id=='admin'){
+        client.query('delete from project where title="'+req.body.title+'";', function(err,result,fields){
+          if(err){
+            console.log("delete project 쿼리문에 오류가 있습니다.");
+          }
+          else{
+            if(req.body.board_id=="admin")
+            {
+              rimraf("./views/data/"+req.body.title);
+              res.send(true);
+            }else{
+              rimraf("./views/test/"+req.body.title);
+              res.send(true);
+            }  
+            }
+        })
+      }else{
+        res.send(false);
+      } 
+    }
+  }else{
+    res.send(false);
+  }
+})
+
 // 회원가입 시 아이디 중복확인
 router.post('/member/select',function(req,res,next){
   client.query('select num from member where id="'+req.body.id+'";', function(err, member, fields){
  
     if(member!=null&&member!=""){
-      res.send("이미 존재하는 아이디 입니다.");
+      res.send(false);
     }else{
-      res.send("사용해도 좋은 아이디 입니다.");
+      res.send(true);
     }
   })
 });
@@ -488,12 +517,12 @@ router.post('/member/join',function(req,res,next){
   console.log('join');
   client.query('select id from member where id="'+req.body.id+'";', function(err, member, fields){
   if(member!=null&&member!=""){
-    res.send("가입실패! 이미 존재하는 아이디 입니다.")
+    res.send(false)
   }else{
     client.query('insert into member(id,password) values ("'+req.body.id+'","'+req.body.password+'");', function(err, result, fields){
       if(err){
         console.log("join 쿼리문에 오류가 있습니다")
-        res.send("아이디나 비밀번호가 잘못되었습니다.");
+        res.send(false);
       }else{
         var paramID = req.body.id;
         var pw = req.body.password;
@@ -504,7 +533,7 @@ router.post('/member/join',function(req,res,next){
             name: 'username',
             authorized: true
         };
-        res.send("가입성공!");
+        res.send(true);
       }
   })
   }
@@ -518,8 +547,11 @@ router.use(function(err, req, res, next) {
   console.error(err.stack);
   if(err.errcode=-4058){
       res.status(500).send("이미 있는 프로젝트명 또는 경로가 잘못되었습니다.");
+  }else if(err.errcode=404){
+    res.status(404).send("잘못된 경로입니다.");
+  }else{
+    res.status(500).send('something error');
   }
-  res.status(500).send('something error');
 });
 
 
