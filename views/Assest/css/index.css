@@ -36,6 +36,7 @@ h3{
   opacity: 1;
   z-index:4;
   display: inline-block;
+  transition: 1s;
 }
 .active_scroll{
   width:90%;
@@ -51,6 +52,7 @@ h3{
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   opacity: 0.9;
+  transition: 1s;
 }
 .active_scroll a{
   font-size:17px;
@@ -60,6 +62,7 @@ h3{
   color:snow;
   margin-right: 30px;
   font-family: 'Thasadith', sans-serif;
+  transition: 1s;
 }
 .scrollspy a{
   font-size:20px;
@@ -69,6 +72,7 @@ h3{
   color:snow;
   margin-right: 30px;
   font-family: 'Thasadith', sans-serif;
+  transition: 1s;
 }
 /* 네비게이션 */
 .nav_menu{
