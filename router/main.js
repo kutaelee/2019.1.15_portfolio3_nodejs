@@ -96,7 +96,7 @@ function rimraf(dir_path) {
 }
 /* 파일 삭제 함수 */
 function deletefile(path,data){
-  console.log("deltefiles진입");
+  console.log("deletefiles진입");
   var i=0;
   while(i<data.length){
     fs.unlink(path+'/'+data[i], function(err) {
@@ -317,24 +317,35 @@ router.post('/project/update',upload.array('filename[]'), (req, res) => {
   })
 });
 
-//delete (글 삭제)
-router.post('/project/delete',function(req,res,next){
-  client.query('delete from project where title="'+req.body.title+'";', function(err,result,fields){
-    if(err){
-      console.log("delete project 쿼리문에 오류가 있습니다.");
-    }
-    else{
-      if(req.body.id=="admin")
-      {
-        rimraf("./views/data/"+req.body.title);
-        res.end();
+//delete (글 삭제) 
+//세션 체크를 먼저 하고 태그로 구별하여 라우팅하는 방식으로 수정,삭제 등 2중 ajax 문제를 해결하려 하였으나 겹치는 문제가 많아서 글 삭제만 해결
+router.post('/session/check', function(req, res,next){
+  if(req.session.user){
+    if(req.body.tag=='delete'){
+      if(req.body.board_id==req.session.user.id || req.session.user.id=='admin'){
+        client.query('delete from project where title="'+req.body.title+'";', function(err,result,fields){
+          if(err){
+            console.log("delete project 쿼리문에 오류가 있습니다.");
+          }
+          else{
+            if(req.body.board_id=="admin")
+            {
+              rimraf("./views/data/"+req.body.title);
+              res.send(true);
+            }else{
+              rimraf("./views/test/"+req.body.title);
+              res.send(true);
+            }  
+            }
+        })
       }else{
-        rimraf("./views/test/"+req.body.title);
-        res.end();
-      }  
-      }
-  })
-});
+        res.send(false);
+      } 
+    }
+  }else{
+    res.send(false);
+  }
+})
 
 //테스터 글 확인 후 삭제
 router.post('/project/remove',function(req,res,next){
@@ -472,33 +483,7 @@ router.post('/member/check', function(req, res,next){
   }
 })
 
-router.post('/session/check', function(req, res,next){
-  if(req.session.user){
-    if(req.body.tag=='delete'){
-      if(req.body.board_id==req.session.user.id || req.session.user.id=='admin'){
-        client.query('delete from project where title="'+req.body.title+'";', function(err,result,fields){
-          if(err){
-            console.log("delete project 쿼리문에 오류가 있습니다.");
-          }
-          else{
-            if(req.body.board_id=="admin")
-            {
-              rimraf("./views/data/"+req.body.title);
-              res.send(true);
-            }else{
-              rimraf("./views/test/"+req.body.title);
-              res.send(true);
-            }  
-            }
-        })
-      }else{
-        res.send(false);
-      } 
-    }
-  }else{
-    res.send(false);
-  }
-})
+
 
 // 회원가입 시 아이디 중복확인
 router.post('/member/select',function(req,res,next){
