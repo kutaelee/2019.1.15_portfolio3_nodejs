@@ -2,11 +2,12 @@ body{
     margin:0;
     padding:0;
     background: black;
+    overflow:hidden;
 }
 .shadow
 {
     position: relative;
-    margin:250px auto 0;
+    margin:10% auto 0;
     width:35%;
     height:35%;
     background: linear-gradient(0deg,#000,#262626);
