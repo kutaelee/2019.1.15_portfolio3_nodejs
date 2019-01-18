@@ -384,7 +384,7 @@ $('.alert_div').click(function(){
   filternone();
 })
 /* 회원가입 click */
-$('.join_span').click(function(){
+$('.join_span a').click(function(){
   $('.alert_div').show();
   $('.login_div').hide();
   $('.join_div').fadeIn();
@@ -516,7 +516,7 @@ $('.join_btn').click(function(){
 /* 로그인 페이지*/
 
 /* 로그인 페이지 load*/
-$('.login_span').click(function(){
+$('.login_span a').click(function(){
   $('.alert_div').show();
   $('.join_div').hide();
   var logintop=$('.login_div').offset();
