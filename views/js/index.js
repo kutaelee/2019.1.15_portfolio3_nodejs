@@ -168,7 +168,7 @@ $('.profile').html(result);
 $('.profile').show("fast");
 
 },error:function(request,status,error){
-  console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 }
 });
 
@@ -178,9 +178,9 @@ $('.profile').show("fast");
       url:"/project/remove",
       type:"post",
       success:function(){
-        console.log("관리자외의 글 삭제완료");
+        alert("관리자외의 글 삭제완료");
       },error:function(request,status,error){
-        console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
     })
     },1000 * 60 * 30);
@@ -218,7 +218,7 @@ $.ajax({
     }
   })
   },error:function(request,status,error){
-    console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
   
   });
@@ -248,7 +248,7 @@ $(document).on('click','.page_btn',function(){
     success:function(result){
       projectload(result);
     },error:function(request,status,error){
-      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 });
@@ -300,7 +300,7 @@ $(document).on('click','.write_btn',function(){
         alert("로그인 후 이용해주세요!");
       }
     },error:function(request,status,error){
-      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
  
@@ -344,7 +344,7 @@ $(document).on("click",".sumnail",function(){
     })
     $('html, body').animate({scrollTop : 0}, 0);
   },error:function(request,status,error){
-    console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
 
     })
@@ -429,7 +429,7 @@ $('.join_id').keyup(function(){
           id_check=false;
         }
       },error:function(request,status,error){
-        console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
       })
   }
@@ -505,7 +505,7 @@ $('.join_btn').click(function(){
       document.location.href="/";
       }
     },error:function(request,status,error){
-      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 }else{
@@ -552,7 +552,7 @@ $('.login_btn').click(function(){
             filternone();
             window.location.href='/';
           },error:function(request,status,error){
-            console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+            alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
           }
         })
       }else{
@@ -579,7 +579,7 @@ $.ajax({
       $('.join_span').show();
     }
   },error:function(request,status,error){
-    console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
 
 })
@@ -592,7 +592,7 @@ $('.logout_span').click(function(){
       window.location.href="/";
       alert("로그아웃 완료");
     },error:function(request,status,error){
-      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 });
@@ -605,7 +605,7 @@ $('.logout_span').click(function(){
     success:function(result){
       $('.guest_book').append(result);
     },error:function(request,status,error){
-      console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 
