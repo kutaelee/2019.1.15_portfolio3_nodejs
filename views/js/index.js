@@ -178,7 +178,7 @@ $('.profile').show("fast");
       url:"/project/remove",
       type:"post",
       success:function(){
-        alert("관리자외의 글 삭제완료");
+        console.log("관리자외의 글 삭제완료");
       },error:function(request,status,error){
         alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
