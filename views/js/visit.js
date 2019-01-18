@@ -6,7 +6,7 @@ var j=0;
 
 /* 방명록 토글함수  */
 function toggle(){
-  $('#'+i).show("slide");
+ $('#visit'+i).show("slide");
 }
 
 $(document).ready(function(){
@@ -24,7 +24,7 @@ $(document).ready(function(){
     {
       var random = Math.floor(Math.random() * 8);
       /* 받아온 글을 역순으로 붙여넣고 배경색은 랜덤값 */
-    $('.visit_text').append('<span id='+x+' style="display:none;background-color:'+color[random]+'"><p>'+list[i].regdate+'<p/>'+list[i].text+'</span>');
+    $('.visit_text').append('<span id=visit'+x+' style="display:none;background-color:'+color[random]+'"><p>'+list[i].regdate+'<p/>'+list[i].text+'</span>');
     i++;
     x--;
     }
