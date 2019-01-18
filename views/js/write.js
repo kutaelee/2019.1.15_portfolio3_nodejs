@@ -39,8 +39,9 @@ $('.back_btn').click(function(){
     projectload(result);
     $('.content_div').show("fast");
     $('.page_btn').toggle();
+  },error:function(request,status,error){
+    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
-
     })
 })
 
@@ -66,7 +67,9 @@ $(document).ready(function(){
         $(".check_a").text("");
         $('.submit_btn').removeAttr('disabled','false');
       }
-     }
+     },error:function(request,status,error){
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+    }
    })
  })
 
@@ -127,12 +130,10 @@ $(document).ready(function(){
       success:function(result){
         var inputtitle = $("<input>").attr("name","cur_title").val(cur_project_title);
         $("#write_form").append(inputtitle).submit();
-      }      
+      },error:function(request,status,error){
+        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      }
     })      
   }
  })
 });
-
-
-
-      
