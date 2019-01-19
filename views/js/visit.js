@@ -6,7 +6,7 @@ var j=0;
 
 /* 방명록 토글함수  */
 function toggle(){
- $('#visit'+i).show("slide");
+  $('#visit'+i).show("slide");
 }
 
 $(document).ready(function(){
@@ -59,7 +59,9 @@ $(document).ready(function(){
         }
       })
     }else{
-      alert("내용을 입력해주세요");
+      $.when(alert_call("내용을 입력해주세요")).done(()=>{
+        alert_none();
+      })
     }
     });
 
@@ -93,7 +95,3 @@ $(document).ready(function(){
         });
       },3000);
 });
-
- 
-
- 
