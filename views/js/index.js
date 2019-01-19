@@ -135,13 +135,13 @@ $(document).ready(function(){
          /* guestbook load*/
       setInterval(() => {
         if(visitsw){
-         visitsw=false;
           $.ajax({
            url:'/visit',
                type:'post',
                datatype:'text/html',
                success:function(result){
                $('.guest_book').append(result);
+               visitsw=false;
               },error:function(request,status,error){
               alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
              }
@@ -392,6 +392,12 @@ function shake(classname){
   $('.'+classname).animate({
     left:0
   },10);
+  $('.'+classname).animate({
+    left:-10
+  },10);
+  $('.'+classname).animate({
+    left:0
+  },10);
   
 }
 $('.alert_div').click(function(){
@@ -560,7 +566,7 @@ $('.login_btn').click(function(){
     type:'post',
     datatype:'json',
     success:function(result){
-      if(result!="일치하는 회원 정보가 없습니다."){   
+      if(result){   
         $.ajax({
           url:'/member/loginsession',
           data:result[0],
@@ -575,7 +581,8 @@ $('.login_btn').click(function(){
           }
         })
       }else{
-        $('.check_div').text(result);
+        shake('login_div');
+        $('.check_div').text("일치하는 회원정보가 없습니다.");
       }
      
     }
