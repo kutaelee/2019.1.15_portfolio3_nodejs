@@ -39,6 +39,9 @@ $('.back_btn').click(function(){
     projectload(result);
     $('.content_div').show("fast");
     $('.page_btn').toggle();
+    $.when(alert_call("글쓰기 취소!")).done(()=>{
+      alert_none();
+    })
   },error:function(request,status,error){
     alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
@@ -156,7 +159,3 @@ $(document).ready(function(){
   }
  })
 });
-
-
-
-      
