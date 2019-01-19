@@ -12,6 +12,8 @@ var fordername=new Array();
 var xss = require("xss");
 var grade="";
 var db_config  = require('../DB/property.json');
+const bcrypt=require('bcrypt-nodejs');
+
 
 var client = mysql.createConnection({
   user: db_config.user,
@@ -169,7 +171,7 @@ router.post('/ip/check',function(req,res,next){
 
 //게스트북 db 출력
 router.post('/visit/text',function(req,res,next){
-    client.query("SELECT id,text,regdate FROM visit order by id DESC limit 10;", function(err, result, fields){
+    client.query("SELECT id,text,regdate FROM visit order by id DESC limit 30;", function(err, result, fields){
       if(err){
           console.log("text 쿼리문에 오류가 있습니다.");
         }
@@ -312,10 +314,11 @@ router.post('/project/deletefiles',function(req,res,next){
 
 //update db 수정 (글 수정)
 router.post('/project/update',upload.array('filename[]'), (req, res) => {
+  var hash = bcrypt.hashSync(req.session.user.pw);
   var title=escapeHtml(req.body.title);
   var lang=escapeHtml(req.body.lang);
   var date=escapeHtml(req.body.date);
-  client.query("update project set title='"+title+"',password='"+req.session.user.pw+"',text='"+req.body.ir1+"',img='/"+grade+'/'+req.body.title+'/'+req.files[0].filename+"',date='"+date+"',lang='"+lang+"' where title='"+req.body.cur_title+"';", function(err,fields){
+  client.query("update project set title='"+title+"',password='"+hash+"',text='"+req.body.ir1+"',img='/"+grade+'/'+req.body.title+'/'+req.files[0].filename+"',date='"+date+"',lang='"+lang+"' where title='"+req.body.cur_title+"';", function(err,fields){
     if(err){
       console.log("update project 쿼리문에 오류가 있습니다.");
     }
@@ -383,11 +386,12 @@ router.post('/project/remove',function(req,res,next){
 
 // 글쓰기
 router.post('/project/write', upload.array('filename[]'), (req, res) => {
+  var hash = bcrypt.hashSync(req.session.user.pw);
   var title=escapeHtml(req.body.title);
   var lang=escapeHtml(req.body.lang);
   var date=escapeHtml(req.body.date);
   console.log(req.ip); 
-   client.query("insert into project(id,password,title,text,img,date,lang) values('"+req.session.user.id+"','"+req.session.user.pw+"','"+title+"','"+req.body.ir1+"','/"+grade+"/"+title+"/"+req.files[0].filename+"','"+date+"','"+lang+"')", function(err, result, fields){
+   client.query("insert into project(id,password,title,text,img,date,lang) values('"+req.session.user.id+"','"+hash+"','"+title+"','"+req.body.ir1+"','/"+grade+"/"+title+"/"+req.files[0].filename+"','"+date+"','"+lang+"')", function(err, result, fields){
     if(err){
         console.log("write 쿼리문에 오류가 있습니다.");
       }
@@ -426,12 +430,17 @@ router.post('/project/count',function(req, res,next){
 
 //로그인 회원정보 확인
 router.post('/member/login',function(req,res,next){
-  client.query('select * from member where id="'+req.body.id+'" && password="'+req.body.password+'";', function(err, member, fields){
-   console.log(member.id);
-    if(!isEmptyObject(member)){    
-      res.json(member);
+  client.query('select * from member where id="'+req.body.id+'";', function(err, member, fields){
+    if(!isEmptyObject(member)){ 
+      if(bcrypt.compareSync(req.body.password,member[0].password)){
+        console.log(member);
+        res.json(member);
+      }
+      else{
+        res.send("비밀번호가 틀립니다.");
+      }
     }else{
-      res.send("일치하는 회원 정보가 없습니다.");
+      res.send("일치하는 ID 정보가 없습니다.");
     }
   })
 });
@@ -439,7 +448,7 @@ router.post('/member/login',function(req,res,next){
 //로그인 세션 등록
 router.post('/member/loginsession', function(req, res,next){
   var paramID = req.body.id;
-  var pw = req.body.password;
+  var pw = bcrypt.hashSync(req.body.password);
 
   if (req.session.user) {
     console.log('이미 로그인 되어 있음');
@@ -512,13 +521,14 @@ router.post('/member/join',function(req,res,next){
   if(member!=null&&member!=""){
     res.send(false)
   }else{
-    client.query('insert into member(id,password) values ("'+req.body.id+'","'+req.body.password+'");', function(err, result, fields){
+    var hash=bcrypt.hashSync(req.body.password);
+    client.query('insert into member(id,password) values ("'+req.body.id+'","'+hash+'");', function(err, result, fields){
       if(err){
         console.log("join 쿼리문에 오류가 있습니다")
         res.send(false);
       }else{
         var paramID = req.body.id;
-        var pw = req.body.password;
+        var pw = hash;
         req.session.user =
         {
             id: paramID,
