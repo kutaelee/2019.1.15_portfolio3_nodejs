@@ -1,4 +1,3 @@
-
 var curpage=0;
 var scrollPosition=0;
 var lastscroll=0;
@@ -135,19 +134,19 @@ $(document).ready(function(){
          /* guestbook load*/
       setInterval(() => {
         if(visitsw){
+          visitsw=false;
           $.ajax({
            url:'/visit',
                type:'post',
                datatype:'text/html',
                success:function(result){
-               $('.guest_book').append(result);
-               visitsw=false;
+               $('.guest_book').append(result);   
               },error:function(request,status,error){
               alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
              }
               })
            }
-      }, 500);
+      }, 50);
     
     }else if(st>guestbookoffset.top){
       scrollspy_css('#guest_book');    
