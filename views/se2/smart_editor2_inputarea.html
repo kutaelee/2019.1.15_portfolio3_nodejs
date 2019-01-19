@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+        <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+         $(document).on('keyup','.se2_inputarea',function(){
+  var maxLength=$(this).attr('maxlength'); 
+  if ($(this).text().length > maxLength) {  
+  
+    $(this).html($(this).text().substring(0, maxLength)); 
+    alert("최대 글자 수는 한글기준 최대 1000자 입니다! ");
+  }  
+ })
+        </script>
 <meta charset="utf-8">
 <title>Smart Editor&#8482; WYSIWYG Mode</title>
 </head>
-<body class="se2_inputarea" style="height:0;-webkit-nbsp-mode:normal"></body>
+<body class="se2_inputarea" style="height:0;-webkit-nbsp-mode:normal" maxlength="2000"></body>
 </html>
