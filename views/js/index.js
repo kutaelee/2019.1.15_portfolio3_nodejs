@@ -135,13 +135,13 @@ $(document).ready(function(){
          /* guestbook load*/
       setInterval(() => {
         if(visitsw){
+         visitsw=false;
           $.ajax({
            url:'/visit',
                type:'post',
                datatype:'text/html',
                success:function(result){
                $('.guest_book').append(result);
-               visitsw=false;
               },error:function(request,status,error){
               alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
              }
