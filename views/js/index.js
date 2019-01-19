@@ -133,8 +133,8 @@ $(document).ready(function(){
       scrollspy_css('#project'); 
 
          /* guestbook load*/
-
-         if(visitsw){
+      setInterval(() => {
+        if(visitsw){
           $.ajax({
            url:'/visit',
                type:'post',
@@ -147,6 +147,8 @@ $(document).ready(function(){
              }
               })
            }
+      }, 500);
+    
     }else if(st>guestbookoffset.top){
       scrollspy_css('#guest_book');    
     }
