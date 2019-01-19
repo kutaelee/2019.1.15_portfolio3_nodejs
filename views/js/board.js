@@ -22,10 +22,14 @@ function right(){
       type:"post",
       success:function(result){
         if(result){
-              alert("삭제완료");
+          $.when(alert_call("삭제완료!")).done(()=>{
+            alert_none();
+          })
               window.location.href="/";            
         }else{
-          alert("권한이 없습니다");
+          $.when(alert_call("삭제 권한이 없습니다!")).done(()=>{
+            alert_none();
+          })
         }
       },error:function(request,status,error){
         alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
@@ -84,7 +88,9 @@ function right(){
             }
           })
         }else{
-          alert("권한이 없습니다");
+          $.when(alert_call("수정권한이 없습니다!")).done(()=>{
+            alert_none();
+          })
         }
       },error:function(request,status,error){
         alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
@@ -186,7 +192,9 @@ $(".left").click(function(){
   if(curpage!=0){
     left();
   }else{
-    alert("첫페이지 입니다.");
+    $.when(alert_call("첫페이지 입니다.")).done(()=>{
+      alert_none();
+    })
   }
 });
 
@@ -194,7 +202,9 @@ $(".right").click(function(){
   if(curpage!=forderlist.length-1){
     right();
   }else{
-    alert("끝페이지 입니다.");
+    $.when(alert_call("끝페이지 입니다.")).done(()=>{
+      alert_none();
+    })
   }
 });
 
