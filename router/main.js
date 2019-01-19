@@ -437,10 +437,10 @@ router.post('/member/login',function(req,res,next){
         res.json(member);
       }
       else{
-        res.send("비밀번호가 틀립니다.");
+        res.send(false);
       }
     }else{
-      res.send("일치하는 ID 정보가 없습니다.");
+      res.send(false);
     }
   })
 });
