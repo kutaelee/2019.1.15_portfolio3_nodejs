@@ -143,7 +143,7 @@ $(document).ready(function(){
       scrollspy_css('#profile');
     }else if(st>projectoffset.top-200&&st<guestbookoffset.top-200){
       scrollspy_css('#project'); 
-
+      if('smartphone'!=$('body').prop('class')){   
          /* guestbook load*/
       setInterval(() => {
         if(visitsw){
@@ -160,7 +160,7 @@ $(document).ready(function(){
               })
            }
       }, 50);
-    
+    }
     }else if(st>guestbookoffset.top){
       scrollspy_css('#guest_book');    
     }
@@ -665,6 +665,19 @@ $(".issue").click(function(){
   window.open("http://issuemoa.kr/","_blank");
 });
 
-
+/* guestbook load*/
+if('smartphone'==$('body').prop('class')){   
+  
+   $.ajax({
+    url:'/visit',
+        type:'post',
+        datatype:'text/html',
+        success:function(result){
+        $('.guest_book').append(result);   
+       },error:function(request,status,error){
+       alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      }
+       })
+    }
 });//ready 끝
 
