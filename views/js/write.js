@@ -73,6 +73,8 @@ $(document).ready(function(){
    })
  })
 
+
+
  // 프로젝트 명이 폴더이름으로 저장되기때문에 특수문자 금지
  $("#project_name").bind("keyup",function(){
   re = /[~!@\#$%^&*\()\-=+_'<>]/gi; 
@@ -83,18 +85,27 @@ $(document).ready(function(){
  }
 });
 
+
  /* 글전송 시 값 검증 */
  $('.submit_btn').click(function(){
 
   if($('#img').val()=="")
   {
-    alert("적어도 한개의 이미지를 첨부하셔야 합니다.")
+    $.when(alert_call("적어도 한개의 이미지를 첨부하셔야 합니다.")).done(()=>{
+      alert_none();
+    })
   }else if($('#project_name').val()==""){
-    alert("프로젝트 제목을 입력해주세요!");
+    $.when(alert_call("프로젝트 제목을 입력해주세요!")).done(()=>{
+      alert_none();
+    })
   }else if($('#project_lang').val()==""){
-    alert("사용언어를 입력해주세요!");
+    $.when(alert_call("사용언어를 입력해주세요!")).done(()=>{
+      alert_none();
+    })
   } else if($('#project_date').val()==""){
-    alert("기간을 입력해주세요!");
+    $.when(alert_call("기간을 입력해주세요!")).done(()=>{
+      alert_none();
+    })
   }
   else{
     // 에디터의 내용이 textarea에 적용된다.
@@ -112,13 +123,21 @@ $(document).ready(function(){
 
   if($('#img').val()=="")
   {
-    alert("적어도 한개의 이미지를 첨부하셔야 합니다.")
+    $.when(alert_call("적어도 한개의 이미지를 첨부하셔야 합니다.")).done(()=>{
+      alert_none();
+    })
   }else if($('#project_name').val()==""){
-    alert("프로젝트 제목을 입력해주세요!");
+    $.when(alert_call("프로젝트 제목을 입력해주세요!")).done(()=>{
+      alert_none();
+    })
   }else if($('#project_lang').val()==""){
-    alert("사용언어를 입력해주세요!");
+    $.when(alert_call("사용언어를 입력해주세요!")).done(()=>{
+      alert_none();
+    })
   } else if($('#project_date').val()==""){
-    alert("기간을 입력해주세요!");
+    $.when(alert_call("기간을 입력해주세요!")).done(()=>{
+      alert_none();
+    })
   }
   else{
     // 에디터의 내용이 textarea에 적용된다.
@@ -137,3 +156,7 @@ $(document).ready(function(){
   }
  })
 });
+
+
+
+      
