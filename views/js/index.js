@@ -12,7 +12,7 @@ var pw_check=false;
 var pw2_check=false;
 var writer="";
 var st=0;
-
+var visitsw=true;
   /*반응형 페이지 */
   $(window).resize(function(e) {
     if($(window).width() > 1370 &&$(window).width() <= 1550){
@@ -130,11 +130,26 @@ $(document).ready(function(){
     }else if(st>profileoffset.top&&st<projectoffset.top-200){
       scrollspy_css('#profile');
     }else if(st>projectoffset.top-200&&st<guestbookoffset.top-200){
-      scrollspy_css('#project');     
+      scrollspy_css('#project'); 
+
+         /* guestbook load*/
+
+         if(visitsw){
+          $.ajax({
+           url:'/visit',
+               type:'post',
+               datatype:'text/html',
+               success:function(result){
+               $('.guest_book').append(result);
+               visitsw=false;
+              },error:function(request,status,error){
+              alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+             }
+              })
+           }
     }else if(st>guestbookoffset.top){
       scrollspy_css('#guest_book');    
     }
-
   });
 /*scrollspy scroll기능*/
 $('#welcome').click(function(){
@@ -599,17 +614,8 @@ $('.logout_span').click(function(){
   })
 });
 
-  /* guestbook */
-  $.ajax({
-    url:'/visit',
-    type:'post',
-    datatype:'text/html',
-    success:function(result){
-      $('.guest_book').append(result);
-    },error:function(request,status,error){
-      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-    }
-  })
+
+
 
 /* footer */
 $(".mygit").click(function(){
