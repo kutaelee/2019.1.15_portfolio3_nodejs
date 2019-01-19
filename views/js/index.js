@@ -1,3 +1,4 @@
+
 var curpage=0;
 var scrollPosition=0;
 var lastscroll=0;
@@ -54,6 +55,18 @@ function projectclose(){
   var offset = $(".content_head").offset();
   $('html, body').animate({scrollTop : offset.top}, 0);
   $('.project_div').text("");
+}
+
+/* alert */
+function alert_call(text){
+  $('.alert').animate({top : st}, 0);
+  $('.alert h1').text(text);
+  $('.alert').fadeIn();
+}
+function alert_none(){
+  setTimeout(()=>{
+    $('.alert').stop().fadeOut();
+  },2000)
 }
 
 /*프로젝트 요소 생성 전역 함수 (index,write 페이지 둘다 쓰임)*/
@@ -313,7 +326,9 @@ $(document).on('click','.write_btn',function(){
           }
         })
       }else{
-        alert("로그인 후 이용해주세요!");
+       $.when(alert_call("로그인 후 이용해주세요!")).done(()=>{
+          alert_none();
+       })
       }
     },error:function(request,status,error){
       alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
@@ -399,8 +414,8 @@ function shake(classname){
   },10);
   
 }
-$('.alert_div').click(function(){
-  $('.alert_div').fadeOut();
+$('.cover_div').click(function(){
+  $('.cover_div').fadeOut();
   $('.login_div').fadeOut();
   $('.join_div').fadeOut();
   filternone();
@@ -408,14 +423,14 @@ $('.alert_div').click(function(){
 /* 회원가입 click */
 $('.join_span a').click(function(){
   $('.check_div').text("");
-  $('.alert_div').show();
+  $('.cover_div').show();
   $('.login_div').hide();
   $('.join_div').fadeIn();
   filterblur();
   $('.join_div').css('-webkit-filter','drop-shadow(5px 5px 20px black)');
 
   $('.close_btn').click(function(){
-    $('.alert_div').hide();
+    $('.cover_div').hide();
     $('#join_form input').val("");
     $('.check_div').html("");
     filternone();
@@ -519,20 +534,29 @@ $('.join_btn').click(function(){
     data:data,
     datatype:'text/html',
     success:function(result){
-      alert("가입성공!");
+      
+      $.when(alert_call("가입성공")).done(()=>{
+        alert_none();
+     })
       if(result)
       {
-      filternone();
-      $('.join_div').hide('slow');
-      $('.join_div input').val("");
-      document.location.href="/";
+        filternone();
+        $('.join_div').fadeOut();
+        $.when(alert_call("가입성공")).done(()=>{
+          alert_none();
+          setTimeout(()=>{
+            document.location.href="/";
+          },1500) 
+       }) 
       }
     },error:function(request,status,error){
       alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
   })
 }else{
-  alert("가입에 실패 하였습니다. 다시 입력해주세요");
+  $.when(alert_call("가입에 실패 하였습니다. 다시 입력해주세요")).done(()=>{
+    alert_none();
+ })
 }
 });
 
@@ -541,7 +565,7 @@ $('.join_btn').click(function(){
 /* 로그인 페이지 load*/
 $('.login_span a').click(function(){
   $('.check_div').text("");
-  $('.alert_div').show();
+  $('.cover_div').show();
   $('.join_div').hide();
   var logintop=$('.login_div').offset();
   $('.login_div').fadeIn();
@@ -550,7 +574,7 @@ $('.login_span a').click(function(){
   $('.login_div').css('-webkit-filter','drop-shadow(5px 5px 20px black)');
 
   $('.close_btn').click(function(){
-    $('.alert_div').hide();
+    $('.cover_div').hide();
     filternone();
     $('.login_div').fadeOut('slow');
   });
@@ -572,9 +596,14 @@ $('.login_btn').click(function(){
           type:'post',
           datatype:'json',
           success:function(result){
-            alert(result+"님 반갑습니다.");
+            $('.login_div').fadeOut();
             filternone();
-            window.location.href='/';
+           $.when(alert_call(result+"님 반갑습니다.")).done(()=>{  
+            setTimeout(()=>{
+              window.location.href="/";
+           },1500)
+         })
+                 
           },error:function(request,status,error){
             alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
           }
@@ -614,8 +643,11 @@ $('.logout_span').click(function(){
     url:'/member/logout',
     type:'get',
     success:function(){
-      window.location.href="/";
-      alert("로그아웃 완료");
+      $.when(alert_call("로그아웃 완료! 새로고침 합니다!")).done(()=>{
+        setTimeout(()=>{
+          window.location.href="/";
+       },1000)
+     })
     },error:function(request,status,error){
       alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
