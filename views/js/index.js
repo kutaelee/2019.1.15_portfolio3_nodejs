@@ -368,6 +368,16 @@ $(document).on("click",".sumnail",function(){
 
 /* 로그인,회원가입 페이지 */
 
+ /* 회원가입 아이디에 특수문자 불가 */
+$(".join_id").bind("keyup",function(){
+  re = /[~!@\#$%^&*\()\-=+_'<>]/gi; 
+  var temp=$(".join_id").val();
+  if(re.test(temp)){ //특수문자가 포함되면 삭제하여 값으로 다시셋팅
+  $(".join_id").val(temp.replace(re,""));
+  $(".check_div").text("ID에 특수문자를 포함할 수 없습니다");
+ }
+});
+  
 /*필터 블러,해제*/
 function filterblur(){
   $(".section").css("-webkit-filter","blur(5px)");
