@@ -370,10 +370,7 @@ function select_test_project(){
         rimraf("./views/test/"+result[i].title);
         i++;
       }
-    }
-    console.log("file delete");
-  });
-  client.query('delete from project where id!="admin";', function(err,fields){
+	     client.query('delete from project where id!="admin";', function(err,fields){
     if(err){
       console.log("remove 쿼리문에 오류가 있습니다.");
     }
@@ -381,6 +378,10 @@ function select_test_project(){
     }
     console.log("db delete");
   }); 
+    }
+    console.log("file delete");
+  });
+ 
 }
 
 // 30분마다 관리자외의 글 삭제
