@@ -58,9 +58,11 @@ p{
   margin:5px;
   box-shadow:2px 6px 10px grey;
   border-radius: 10px;
-
 }
-
+.visit_text p{
+  text-align: center;
+  color:darkslategrey;
+}
 
 /* 전송 폼 영역 */
 .visit_form_div{
