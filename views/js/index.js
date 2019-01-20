@@ -1,4 +1,3 @@
-
 var curpage=0;
 var scrollPosition=0;
 var lastscroll=0;
@@ -200,20 +199,6 @@ $('.profile').show("fast");
   alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 }
 });
-
-  /*N분마다 테스터 글 삭제 */
-  setInterval(function(){
-    $.ajax({
-      url:"/project/remove",
-      type:"post",
-      success:function(){
-        console.log("관리자외의 글 삭제완료");
-      },error:function(request,status,error){
-        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-      }
-    })
-    },1000 * 60 * 30);
-
 
     /* project */
 
