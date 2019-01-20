@@ -358,8 +358,8 @@ router.post('/session/check', function(req, res,next){
   }
 })
 
-//테스터 글 확인 후 삭제
-router.post('/project/remove',function(req,res,next){
+// 관리자외의 글 select 및 delete 함수
+function select_test_project(){
   var i=0;
   client.query('select title from project where id!="admin";', function(err,result,fields){
     if(err){
@@ -369,20 +369,23 @@ router.post('/project/remove',function(req,res,next){
       while(i<result.length){
         rimraf("./views/test/"+result[i].title);
         i++;
-        res.end();
       }
     }
+    console.log("file delete");
   });
-      client.query('delete from project where id!="admin";', function(err,fields){
-        if(err){
-          console.log("remove 쿼리문에 오류가 있습니다.");
-        }
-        else{
-          res.end();
-        }
-        
-      }); 
-  });
+  client.query('delete from project where id!="admin";', function(err,fields){
+    if(err){
+      console.log("remove 쿼리문에 오류가 있습니다.");
+    }
+    else{
+    }
+    console.log("db delete");
+  }); 
+}
+
+// 30분마다 관리자외의 글 삭제
+setInterval(select_test_project,1000*60*30);
+
 
 // 글쓰기
 router.post('/project/write', upload.array('filename[]'), (req, res) => {
