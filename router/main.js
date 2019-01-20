@@ -171,7 +171,7 @@ router.post('/ip/check',function(req,res,next){
 
 //게스트북 db 출력
 router.post('/visit/text',function(req,res,next){
-    client.query("SELECT id,text,regdate FROM visit order by id DESC limit 30;", function(err, result, fields){
+    client.query("SELECT id,text,regdate FROM visit order by id DESC limit 15;", function(err, result, fields){
       if(err){
           console.log("text 쿼리문에 오류가 있습니다.");
         }
@@ -183,8 +183,21 @@ router.post('/visit/text',function(req,res,next){
 
   //게스트북 db입력
   router.post('/visit/submit',function(req,res,next){
+    var i=0;
     console.log(req.ip);
-    var text=escapeHtml(req.body.text);
+    req.body.text=escapeHtml(req.body.text);
+    //줄넘김 추가
+    var visit_text="";
+    if(i+100<req.body.text.length){
+    while(i+100<req.body.text.length){
+        var temp=req.body.text.substring(i,i+100);
+        visit_text+=temp+'<br/>';
+        i+=100;
+      }
+    }else{
+      visit_text=req.body.text;
+    }
+  
     console.log(req.body.text);
     var today = new Date();
     var dd = today.getDate();
@@ -200,10 +213,11 @@ router.post('/visit/text',function(req,res,next){
     if (mm < 10) {
       mm = '0' + mm;
     }
-    today = yyyy + '/' + mm + '/' + dd+ ' ' + tm+ ':' + min+ ':' + sec;
-    client.query('insert into visit(text,regdate) values ("'+text+'","'+today+'");', function(err, result, fields){
+    today = yyyy + '년' + mm + '월' + dd+ '일 ' + tm+ '시' + min+ '분' + sec+'초';
+    client.query('insert into visit(text,regdate) values ("'+visit_text+'","'+today+'");', function(err, result, fields){
       if(err){
           console.log("submit 쿼리문에 오류가 있습니다.");
+          res.send("방명록에 스크립트 사용금지!");
         }
         else{
           res.json(result);
@@ -370,14 +384,14 @@ function select_test_project(){
         rimraf("./views/test/"+result[i].title);
         i++;
       }
-	     client.query('delete from project where id!="admin";', function(err,fields){
-    if(err){
-      console.log("remove 쿼리문에 오류가 있습니다.");
-    }
-    else{
-    }
-    console.log("db delete");
-  }); 
+      client.query('delete from project where id!="admin";', function(err,fields){
+        if(err){
+          console.log("remove 쿼리문에 오류가 있습니다.");
+        }
+        else{
+        }
+        console.log("db delete");
+      }); 
     }
     console.log("file delete");
   });
@@ -553,7 +567,7 @@ router.post('/member/join',function(req,res,next){
 router.use(function(err, req, res, next) {
   console.error(err.stack);
   if(err.errcode=-4058){
-      res.status(500).send("이미 있는 프로젝트명 또는 경로가 잘못되었습니다.");
+      res.status(500).send("서버 에러!");
   }else if(err.errcode=404){
     res.status(404).send("잘못된 경로입니다.");
   }else{
@@ -563,4 +577,3 @@ router.use(function(err, req, res, next) {
 
 
 module.exports = router;
-
