@@ -213,7 +213,7 @@ router.post('/visit/text',function(req,res,next){
     if (mm < 10) {
       mm = '0' + mm;
     }
-    today = yyyy + '년' + mm + '월' + dd+ '일 ' + tm+ '시' + min+ '분' + sec+'초';
+    today = yyyy + '년' + mm + '월' + dd+ '일<br/>' + tm+ '시' + min+ '분' + sec+'초';
     client.query('insert into visit(text,regdate) values ("'+visit_text+'","'+today+'");', function(err, result, fields){
       if(err){
           console.log("submit 쿼리문에 오류가 있습니다.");
