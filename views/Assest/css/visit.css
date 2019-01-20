@@ -49,14 +49,16 @@ p{
   height:90%;
   display: inline-block;
   overflow-y: auto;
+  overflow-x:hidden;
+
 }
 .visit_text span{
   padding:10px;
   font-size: 15px;
-  display: inline-block;
   margin:5px;
   box-shadow:2px 6px 10px grey;
   border-radius: 10px;
+
 }
 
 
