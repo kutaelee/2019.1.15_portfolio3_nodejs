@@ -37,11 +37,21 @@ $(document).ready(function(){
         toggle();
       }
       i++;
-    }, 300);
+    }, 100);
     },error:function(request,status,error){
       alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
     }
     })
+    /* 전송할 텍스트 글자수 제한 */
+    $(document).on('keyup','#textarea',function(){
+      var maxLength=$(this).attr('maxlength'); 
+      if ($(this).val().length > maxLength-1) {  
+        $(this).html($(this).val().substring(0, maxLength));
+        $.when(alert_call("글자 수는 최대 400자 입니다!")).done(()=>{
+          alert_none();
+        }) 
+      }  
+    });
   /* 전송버튼 기능 */
     $('.visit_span').click(function(){
       if(document.getElementById('textarea').value!="" && document.getElementById('textarea').value.length!=0){
@@ -55,7 +65,9 @@ $(document).ready(function(){
         success:function(){
           $('#textarea').val("");
         },error:function(request,status,error){
-          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+          $.when(alert_call(request.responseText)).done(()=>{
+            alert_none();
+          })
         }
       })
     }else{
