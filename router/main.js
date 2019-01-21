@@ -255,7 +255,7 @@ router.post('/project/load',function(req, res,next){
  
   client.query('select * from project order by num desc limit 6;', function(err, result, fields){
   if(err){
-      console.log("projectroad 쿼리문에 오류가 있습니다.");
+      console.log("projectload 쿼리문에 오류가 있습니다.");
     }
     else{
       res.json(result);
@@ -267,7 +267,7 @@ router.post('/project/load',function(req, res,next){
 router.post('/project/pageload',function(req, res,next){
   client.query('select * from project order by num desc limit '+req.body.data+',6;', function(err, result, fields){
     if(err){
-        console.log("projectroad 쿼리문에 오류가 있습니다.");
+        console.log("projectpageload 쿼리문에 오류가 있습니다.");
       }
       else{  console.log("pageload");
 
@@ -279,16 +279,16 @@ router.post('/project/pageload',function(req, res,next){
 
 //선택한 프로젝트 슬라이드 이미지 폴더 경로 전송
 router.post('/:id/num',function(req,res,next){
-
-  client.query('select * from project where title='+req.body.list+';', function(err, result, fields){
+  console.log(req.body.list);
+  client.query('select * from project where title="'+req.body.list+'";', function(err, result, fields){
     if(err){
-        console.log("projectroad 쿼리문에 오류가 있습니다.");
+        console.log("projectnum 쿼리문에 오류가 있습니다.");
       }
       else{
         if(!isEmptyObject(result))
         {
           fs.readdir('./views'+req.body.dir+'/'+req.body.list,(err,data) =>{
-            if(err) throw err;
+            if(err) {console.log(err);throw err;}
               res.send(data);
           });
       
