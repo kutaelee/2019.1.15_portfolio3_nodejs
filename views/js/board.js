@@ -1,5 +1,7 @@
 var board_title="";
 var board_id="";
+var forderlist=new Array();
+var i=0;
 curpage=0;
 /* 슬라이드 이미지 넘기는 함수 */
 function left(){
@@ -13,7 +15,41 @@ function right(){
   $(".pagenum").text((curpage+1)+'/'+forderlist.length);
 }
 
-
+/* 프로젝트 게시판 로드 */
+function board_load(){
+  $.ajax({
+    url:"/project/get",
+    type:"post",
+    data:{'data':select_num},
+    datatype:"text/html",
+    success:function(result){
+      board_title=result[0].title;
+      board_id=result[0].id;
+      $('.board_Lang').append(result[0].lang);
+      $('.board_title').append(result[0].title);
+      $('.board_date').append(result[0].date);
+      $('.board_text').append(result[0].text);       
+      $('.content_div').show("fast");
+      writer=result[0].id;
+      cur_project_title=result[0].title;
+    },error:function(request,status,error){
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+    }
+      })
+}
+function board_reload(){
+  $.ajax({
+    url:"/project/pageload",
+    type:"post",
+    data:{'data':cur_project_page},
+    datatype:"text/html",
+    success:function(result){
+      projectload(result);
+    },error:function(request,status,error){
+      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+    }
+  })
+}
 /* 글 삭제 */
   $('.delete_btn').click(function(){
     $.ajax({
@@ -67,22 +103,7 @@ function right(){
               $('.content_div').html(result);
               $('.content_div').show("fast");
               $('.page_btn').toggle();
-
-              $.ajax({
-                url:'/project/get',
-                type:'post',
-                data:{'data':select_num},
-                datatype:'text/html',
-                success:function(result){
-                $('#project_name').val(result[0].title);
-                $('#project_lang').val(result[0].lang);
-                 $('#project_date').val(result[0].date);
-                 $('#ir1').val(result[0].text); 
-                 $('.page_btn').hide();
-                },error:function(request,status,error){
-                  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-                }
-              })
+              board_load();
             },error:function(request,status,error){
               alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
             }
@@ -101,28 +122,9 @@ function right(){
 
   /*프로젝트 내용통신*/
   $(document).ready(function(){
-    $.ajax({
-      url:"/project/get",
-      type:"post",
-      data:{'data':select_num},
-      datatype:"text/html",
-      success:function(result){
-        board_title=result[0].title;
-        board_id=result[0].id;
-        $('.board_Lang').append(result[0].lang);
-        $('.board_title').append(result[0].title);
-        $('.board_date').append(result[0].date);
-        $('.board_text').append(result[0].text);       
-        $('.content_div').show("fast");
-        writer=result[0].id;
-        cur_project_title=result[0].title;
-      },error:function(request,status,error){
-        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-      }
-        })
-  })
-var forderlist=new Array();
-var i=0;
+    board_load();
+})
+
 
 
 /* 방향키 입력 슬라이드 이미지*/
@@ -154,22 +156,40 @@ $.ajax({
   data:{"title":cur_project_title},
   datatype:"json",
   success:function(result){
-    imgdir=result[0].img+"";
-    imgdir=imgdir.substring(0,5);
-    $.ajax({
-      url:"/project/num",
-      type:"post",
-      data:{"list":cur_project_title,"dir":imgdir},
-      datatype:"json",
-      success:function(result){
-        forderlist=(result);
-        $(".slide_img").html('<img src="..'+imgdir+'/'+cur_project_title+'/'+forderlist[0]+'">');
-        $(".pagenum").text((curpage+1)+'/'+(forderlist.length));     
-      },error:function(request,status,error){
-        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-      }
-      });
+    if(result){
+      imgdir=result[0].img+"";
+      imgdir=imgdir.substring(0,5);
+      $.ajax({
+        url:"/project/num",
+        type:"post",
+        data:{"list":cur_project_title,"dir":imgdir},
+        datatype:"json",
+        success:function(result){
+          if(result){
+            forderlist=(result);
+            $(".slide_img").html('<img src="..'+imgdir+'/'+cur_project_title+'/'+forderlist[0]+'">');
+            $(".pagenum").text((curpage+1)+'/'+(forderlist.length));    
+          }else{
+            $.when(alert_call("삭제된 글입니다.")).done(()=>{
+              alert_none();
+            })
+            board_reload();
+          }
+         
+        },error:function(request,status,error){
+          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+        }
+        });
+    }else{
+      $.when(alert_call("삭제된 글입니다.")).done(()=>{
+        alert_none();
+        board_reload();
+      })
+    }
  
+ 
+  },error:function(request,status,error){
+    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
   }
 })
 
