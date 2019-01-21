@@ -279,10 +279,24 @@ router.post('/project/pageload',function(req, res,next){
 
 //선택한 프로젝트 슬라이드 이미지 폴더 경로 전송
 router.post('/:id/num',function(req,res,next){
-  fs.readdir('./views'+req.body.dir+'/'+req.body.list,(err,data) =>{
-    if(err) throw err;
-    res.send(data);
-  });
+
+  client.query('select * from project where title='+req.body.list+';', function(err, result, fields){
+    if(err){
+        console.log("projectroad 쿼리문에 오류가 있습니다.");
+      }
+      else{
+        if(!isEmptyObject(result))
+        {
+          fs.readdir('./views'+req.body.dir+'/'+req.body.list,(err,data) =>{
+            if(err) throw err;
+              res.send(data);
+          });
+      
+        }else{
+         res.send(false);
+        }
+      }
+    });
 });
 
 // 섬네일 이미지 경로 전송 
@@ -295,8 +309,7 @@ router.post('/project/select',function(req,res,next){
       if(!isEmptyObject(result)){
         res.send(result);
       }else{
-    
-        res.send("없음");
+        res.send(false);
        }     
       }   
   })
@@ -374,28 +387,31 @@ router.post('/session/check', function(req, res,next){
 
 // 관리자외의 글 select 및 delete 함수
 function select_test_project(){
+  setTimeout(function(){
   var i=0;
-  client.query('select title from project where id!="admin";', function(err,result,fields){
+  client.query('select title from project where id!="admin";', function(err,result){
     if(err){
       console.log("remove 쿼리문에 오류가 있습니다.");
     }
     else{
-      while(i<result.length){
-        rimraf("./views/test/"+result[i].title);
-        i++;
-      }
-      client.query('delete from project where id!="admin";', function(err,fields){
-        if(err){
-          console.log("remove 쿼리문에 오류가 있습니다.");
+      if(i<result.length){
+        while(i<result.length){
+          rimraf("./views/test/"+result[i].title);
+          i++;
         }
-        else{
-        }
-        console.log("db delete");
-      }); 
+        client.query('delete from project where id!="admin";', function(err){
+          if(err){
+            console.log("remove 쿼리문에 오류가 있습니다.");
+          }
+          else{
+          }
+          console.log("db delete");
+        }); 
+        console.log("file delete");
+      }    
     }
-    console.log("file delete");
   });
- 
+},1000*10)
 }
 
 // 30분마다 관리자외의 글 삭제
@@ -412,10 +428,11 @@ router.post('/project/write', upload.array('filename[]'), (req, res) => {
    client.query("insert into project(id,password,title,text,img,date,lang) values('"+req.session.user.id+"','"+hash+"','"+title+"','"+req.body.ir1+"','/"+grade+"/"+title+"/"+req.files[0].filename+"','"+date+"','"+lang+"')", function(err, result, fields){
     if(err){
         console.log("write 쿼리문에 오류가 있습니다.");
+      }else{
+        res.redirect('/#Project');
       }
     });
-    
-   res.redirect('/#Project');
+ 
 });
 
 
@@ -427,7 +444,12 @@ router.post('/project/get',function(req, res,next){
         console.log("projectroad 쿼리문에 오류가 있습니다.");
       }
       else{
-        res.json(result);
+        if(!isEmptyObject(result))
+        {
+         res.json(result);
+        }else{
+          res.redirect('/');
+        }
       }
     });
 });
