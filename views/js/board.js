@@ -103,7 +103,20 @@ function board_reload(){
               $('.content_div').html(result);
               $('.content_div').show("fast");
               $('.page_btn').toggle();
-              board_load();
+              $.ajax({
+                url:'/project/get',
+                type:'post',
+                data:{'data':select_num},
+                datatype:'text/html',
+                success:function(result){
+                $('#project_name').val(result[0].title);
+                $('#project_lang').val(result[0].lang);
+                 $('#project_date').val(result[0].date);
+                 $('#ir1').val(result[0].text); 
+                 $('.page_btn').hide();
+                }
+              })
+          
             },error:function(request,status,error){
               alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
             }
