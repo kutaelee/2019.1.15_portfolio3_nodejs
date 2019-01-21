@@ -17,12 +17,12 @@
  * alert 기능
  * 비밀번호 암호화 (bcrypt)
  * 반응형 웹
- * 다른 기능이 더 추가될 예정입니다.
-
+ * 각종 에러 처리(ex 404,500,input 값 검사 등)
+ 
 
 ## 다운받아서 직접 실행해보시는 방법
  * 1.mysql 데이터베이스에 DB디렉토리의 gyutae_member.sql,gyutae_project.sql,gyutae_visit.sql 파일을 import 
  * 2.DB 디렉토리의 property 파일에 데이터베이스 이름과 아이디 비밀번호 저장
  * 3.cmd -> cd 저장경로/portfolio3 -> node app.js -> 브라우저에서 localhost:4500 
 
-[데모보기](http://kutaelee.iptime.org:4500)
+[데모보기](http://ec2-13-209-68-44.ap-northeast-2.compute.amazonaws.com/)
