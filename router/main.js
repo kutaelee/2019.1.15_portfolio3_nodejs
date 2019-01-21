@@ -77,7 +77,7 @@ const upload = multer({
 
     },
     filename: function (req, file, cb) {
-      cb(null,file.originalname.replace(/^\s*|\s*$/g, ''));
+      cb(null,file.originalname.replace(/[~!@\#$%^&*\()\-=+_'<>]/gi, ''));
     }
   }),
 });
@@ -599,4 +599,3 @@ router.use(function(err, req, res, next) {
 
 
 module.exports = router;
-
